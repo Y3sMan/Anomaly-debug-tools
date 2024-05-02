@@ -40,8 +40,24 @@ function dbg_print(msg,...)
         msg = " [MSG == NIL] "
         callstack()
     end
-
-    if newline then dbg_newline() end
+    
+    -- pulled from _g.script
+    -- more var subbing
+	if (select('#',...) >= 1) then
+		local i = 0
+		local p = {...}
+		local function sr(a)
+			i = i + 1
+			if (type(p[i]) == 'userdata') then
+				if (p[i].x and p[i].y) then
+					return vec_to_str(p[i])
+				end
+				return 'userdata'
+			end
+			return tostring(p[i])
+		end
+		msg = string.gsub(msg,"%%s",sr)
+	end
 
     printdbg("![%s]: %s",modname,msg,...)
 end
