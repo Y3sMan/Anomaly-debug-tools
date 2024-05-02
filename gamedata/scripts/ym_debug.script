@@ -34,8 +34,7 @@ function dbg_newline()
 end
 
 
-function dbg_print(msg,newline,...)
-    newline = newline or false
+function dbg_print(msg,...)
 
     if (not msg) then 
         msg = " [MSG == NIL] "
